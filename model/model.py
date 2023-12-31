@@ -130,6 +130,9 @@ class YOLOSeg:
         """
         self.img_height, self.img_width = image.shape[:2]
 
+        if image.shape[-1] == 4:
+            image = cv2.cvtColor(image, cv2.COLOR_RGBA2RGB)
+
         input_img = cv2.resize(image, (self.input_width, self.input_height))
 
         input_img = input_img / 255.0
