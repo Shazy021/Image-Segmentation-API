@@ -49,6 +49,9 @@ def draw_detections(image, boxes, scores, class_ids, mask_alpha=0.3, mask_maps=N
     :param mask_maps: The mask predictions. Default is None.
     :return: The image with object masks overlaid on it.
     """
+    if image.shape[-1] == 4:
+        image = cv2.cvtColor(image, cv2.COLOR_RGBA2RGB)
+
     img_height, img_width = image.shape[:2]
     size = min([img_height, img_width]) * 0.0006
     text_thickness = int(min([img_height, img_width]) * 0.001)
