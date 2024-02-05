@@ -1,6 +1,6 @@
 # Image segmentation API
-This is a simple API for performing image object segmentation using the YOLO segmentation model.
-The API takes an input image and returns the processed image with the predicted classes.
+This is a simple API for performing image object segmentation using YOLO segmentation model.
+The API takes an input image and returns processed image with predicted classes.
 
 ## Installation
 1. Clone the repository:
@@ -21,23 +21,23 @@ CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80", "--workers","4"]
 docker-compose up
 ```
 
-The API will be accessible at http://localhost:8080
+API will be accessible at http://localhost:8080
 
 ## Usage
 ### Request
-Send a POST request to http://localhost:8080/process_image with the following parameters:
+Send a POST request to http://localhost:8080/process_image with following parameters:
 
 - file: The input image file to be processed
 
 ### Response
 
-The API responds with a JSON object containing the following fields:
+The API responds with a JSON object containing following fields:
 
-- processed_image: The processed image in array format
-- classes: The predicted classes in an array format
+- processed_image: Processed image in array format
+- classes: Predicted classes in an array format
 
-## Interacting with the API
-Below is an example of how to interact with the API using Python:
+## Interacting with API
+Below is an example of how to interact with API using Python:
 ```
 import requests
 from PIL import Image
@@ -45,28 +45,28 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json
 
-# Define the path to the image you want to process
+# Define path to image you want to process
 image_path = "./data/test.png"
 
-# Create the request parameters
+# Create request parameters
 files = {"file": open(image_path, "rb")}
 
-# Send a POST request to the API endpoint
+# Send a POST request to API endpoint
 response = requests.post("http://localhost:8080/process_image", files=files)
 
-# Check the response status code
+# Check response status code
 if response.status_code == 200:
-    # Get the processed image
+    # Get processed image
     processed_image = json.loads(response.content)
 
-    # Display the processed image
+    # Display processed image
     plt.imshow(processed_image['processed_image'])
     plt.show()
 
-    # Print the predicted classes
+    # Print predicted classes
     print(processed_image['classes'])
 else:
-    # Handle the error if the request fails
+    # Handle error if request fails
     print(f"Error {response.status_code}: {response.text}")
 ```
 ## Example
